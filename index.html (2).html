@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annuaire de Contacts - Peugeot Strasbourg</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    padding:30px 30px 100px;
+    background:#0a0a0a;
+    margin:0;
+    min-height:100vh;
+    position:relative;
+    justify-content:center;
+    align-content:flex-start
+}
+
+.header-band{
+    width:100%;
+    text-align:center;
+    margin-bottom:20px
+}
+
+.brand-title{
+    color:#fff;
+    font-size:22px;
+    letter-spacing:2px;
+    margin:0 0 8px;
+    text-transform:uppercase;
+    font-weight:700
+}
+
+.header-band h1{
+    color:#4a9eff;
+    font-size:17px;
+    letter-spacing:1px;
+    margin:0 0 4px;
+    text-transform:uppercase;
+    font-weight:600
+}
+
+.header-band p{
+    color:#999;
+    font-size:13px;
+    margin:0
+}
+
+.section-title{
+    width:100%;
+    max-width:980px;
+    color:#fff;
+    font-size:14px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    border-bottom:1px solid #2a2a2a;
+    padding:10px 4px 8px;
+    margin-top:8px
+}
+
+.card{
+    background:#151515;
+    border:1px solid #2a2a2a;
+    border-radius:10px;
+    padding:24px 20px;
+    width:220px;
+    text-align:center;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.4);
+    transition:.2s
+}
+
+.card:hover{
+    border-color:#4a9eff;
+    box-shadow:0 8px 20px rgba(74,158,255,.25);
+    transform:translateY(-3px)
+}
+
+.avatar,.avatar-lg{
+    border-radius:50%;
+    background:linear-gradient(135deg,#4a9eff,#1a5fb4);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-weight:bold
+}
+
+.avatar{
+    width:64px;
+    height:64px;
+    margin:0 auto 14px;
+    font-size:20px
+}
+
+.card h3{
+    margin:0 0 6px;
+    color:#f2f2f2;
+    font-size:15px
+}
+
+.card p{
+    margin:4px 0;
+    color:#a8a8a8;
+    font-size:12px
+}
+
+.hint{
+    display:inline-block;
+    margin-top:14px;
+    font-size:11px;
+    color:#4a9eff;
+    font-weight:bold;
+    letter-spacing:.5px;
+    text-transform:uppercase
+}
+
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    align-items:center;
+    justify-content:center;
+    z-index:100
+}
+
+.overlay.active{
+    display:flex
+}
+
+.modal{
+    background:#151515;
+    border:1px solid #2a2a2a;
+    border-radius:14px;
+    padding:32px 28px;
+    width:320px;
+    text-align:center;
+    position:relative;
+    box-shadow:0 15px 40px rgba(0,0,0,.6)
+}
+
+.avatar-lg{
+    width:80px;
+    height:80px;
+    margin:0 auto 14px;
+    font-size:26px
+}
+
+.modal h2{
+    margin:0 0 4px;
+    color:#f7f7f7;
+    font-size:19px
+}
+
+.modal .poste{
+    color:#4a9eff;
+    font-weight:bold;
+    margin-bottom:22px;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.5px
+}
+
+.info-line{
+    text-align:left;
+    margin:12px 0;
+    font-size:14px;
+    color:#ddd;
+    border-bottom:1px solid #262626;
+    padding-bottom:8px
+}
+
+.info-line strong{
+    display:block;
+    color:#777;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:2px
+}
+
+.download-btn{
+    margin-top:22px;
+    padding:12px 16px;
+    background:#fff;
+    color:#0a0a0a;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    width:100%
+}
+
+.download-btn:hover{
+    background:#4a9eff;
+    color:#fff
+}
+
+.close-btn{
+    position:absolute;
+    top:12px;
+    right:12px;
+    cursor:pointer;
+    font-size:15px;
+    line-height:1;
+    color:#999;
+    background:#262626;
+    border:none;
+    border-radius:50%;
+    width:28px;
+    height:28px
+}
+
+.close-btn:hover{
+    background:#333;
+    color:#fff
+}
+
+.footer-brand{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#000;
+    border-top:1px solid #222;
+    padding:16px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:50
+}
+
+.footer-brand span{
+    color:#ccc;
+    font-size:13px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    font-weight:600
+}
+
+@media(max-width:600px){
+    body{
+        padding:20px 12px 90px;
+        gap:14px
+    }
+
+    .card{
+        width:calc(50% - 7px);
+        padding:18px 10px
+    }
+
+    .modal{
+        width:calc(100% - 30px)
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header-band">
+    <div class="brand-title">Peugeot Strasbourg</div>
+    <h1>Notre équipe commerciale</h1>
+    <p>Ajoutez directement votre conseiller à vos contacts</p>
+</div>
+
+<div class="overlay" id="overlay">
+    <div class="modal" id="modalContent"></div>
+</div>
+
+
+<!-- ========================= -->
+<!-- VENDEURS VN HOENHEIM -->
+<!-- ========================= -->
+
+<div class="section-title">Vendeurs VN Hoenheim</div>
+<div id="vn-hoenheim"></div>
+
+
+<!-- ========================= -->
+<!-- VENDEURS ESA HOENHEIM -->
+<!-- ========================= -->
+
+<div class="section-title">Vendeurs ESA Hoenheim</div>
+<div id="societes"></div>
+
+
+<!-- ========================= -->
+<!-- VENDEURS ILLKIRCH -->
+<!-- ========================= -->
+
+<div class="section-title">Vendeurs Illkirch</div>
+<div id="illkirch"></div>
+
+
+<div class="footer-brand">
+    <span>Grand Est Automobiles</span>
+</div>
+
+
+<script>
+
+const adresse = "1A rue Emile Mathis, 67800 Hoenheim";
+
+const profils = [
+
+    /* =========================
+       HOENHEIM
+       ========================= */
+
+    {
+        nom:"Lallouni Axel",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"07 69 37 66 30",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+    {
+        nom:"Hild Simon",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"06 46 75 51 32",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+    {
+        nom:"Piscioth Morgane",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"07 65 73 70 41",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+    {
+        nom:"Dastan Hidayet",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"07 66 54 64 79",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+    {
+        nom:"Dore Valentin",
+        poste:"Secteur",
+        email:"",
+        tel:"07 83 68 75 95",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+    {
+        nom:"Samttmann Hervé",
+        poste:"Secteur",
+        email:"",
+        tel:"06 61 94 33 17",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+    {
+        nom:"Mickael Ruivo",
+        poste:"Vendeur VN",
+        email:"mickael.ruivo@geauto.fr",
+        tel:"06 68 09 01 56",
+        site:"Peugeot Strasbourg Hoenheim",
+        groupe:"vn-hoenheim"
+    },
+
+
+    /* =========================
+       VENDEURS ESA HOENHEIM
+       ========================= */
+
+    {
+        nom:"Muller Johann",
+        poste:"Vendeur ESA",
+        email:"",
+        tel:"06 22 89 69 36",
+        site:"Peugeot Strasbourg - ESA Hoenheim",
+        groupe:"societes"
+    },
+
+    {
+        nom:"Vollot Jules",
+        poste:"Vendeur ESA",
+        email:"",
+        tel:"06 18 66 28 02",
+        site:"Peugeot Strasbourg - ESA Hoenheim",
+        groupe:"societes"
+    },
+
+    {
+        nom:"Staine Valentin",
+        poste:"Vendeur ESA",
+        email:"",
+        tel:"06 28 29 99 46",
+        site:"Peugeot Strasbourg - ESA Hoenheim",
+        groupe:"societes"
+    },
+
+    {
+        nom:"Marrocco Patrick",
+        poste:"Vendeur ESA",
+        email:"",
+        tel:"06 51 00 21 43",
+        site:"Peugeot Strasbourg - ESA Hoenheim",
+        groupe:"societes"
+    },
+
+
+    /* =========================
+       ILLKIRCH
+       ========================= */
+
+    {
+        nom:"Zell Christel",
+        poste:"Vendeuse ESA",
+        email:"",
+        tel:"06 23 83 17 34",
+        site:"Peugeot Strasbourg Illkirch",
+        groupe:"illkirch"
+    },
+
+    {
+        nom:"Loïc Wollenburger",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"06 85 76 31 27",
+        site:"Peugeot Strasbourg Illkirch",
+        groupe:"illkirch"
+    },
+
+    {
+        nom:"Georgel Gaylord",
+        poste:"Secteur",
+        email:"",
+        tel:"06 71 20 46",
+        site:"Peugeot Strasbourg Illkirch",
+        groupe:"illkirch"
+    },
+
+    {
+        nom:"Lorens Quentin",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"06 46 75 57 73",
+        site:"Peugeot Strasbourg Illkirch",
+        groupe:"illkirch"
+    },
+
+    {
+        nom:"Hudana Rayan",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"07 60 83 98 47",
+        site:"Peugeot Strasbourg Illkirch",
+        groupe:"illkirch"
+    }
+
+];
+
+
+/* =========================
+   INITIALES
+   ========================= */
+
+function getInitiales(nom){
+
+    return nom
+        .split(/\s+/)
+        .filter(Boolean)
+        .map(n => n[0])
+        .join('')
+        .slice(0,2)
+        .toUpperCase();
+
+}
+
+
+/* =========================
+   OUVERTURE DE LA FICHE
+   ========================= */
+
+function ouvrirFiche(profil){
+
+    const modal = document.getElementById('modalContent');
+
+    modal.innerHTML = `
+
+        <button class="close-btn" onclick="fermerFiche()">
+            &#10005;
+        </button>
+
+        <div class="avatar-lg">
+            ${getInitiales(profil.nom)}
+        </div>
+
+        <h2>${profil.nom}</h2>
+
+        <div class="poste">
+            ${profil.poste}
+        </div>
+
+        ${
+            profil.tel
+            ?
+            `<div class="info-line">
+                <strong>Téléphone</strong>
+                <a
+                    href="tel:${profil.tel.replace(/\s/g,'')}"
+                    style="color:#ddd;text-decoration:none"
+                >
+                    ${profil.tel}
+                </a>
+            </div>`
+            :
+            ''
+        }
+
+        ${
+            profil.email
+            ?
+            `<div class="info-line">
+                <strong>Email</strong>
+                <a
+                    href="mailto:${profil.email}"
+                    style="color:#ddd;text-decoration:none"
+                >
+                    ${profil.email}
+                </a>
+            </div>`
+            :
+            ''
+        }
+
+        <div class="info-line">
+            <strong>Concession</strong>
+            ${profil.site}
+        </div>
+
+        <div class="info-line">
+            <strong>Adresse</strong>
+            ${adresse}
+        </div>
+
+        <button
+            class="download-btn"
+            onclick='telechargerVCard(${JSON.stringify(profil)})'
+        >
+            Télécharger le contact (.vcf)
+        </button>
+
+    `;
+
+    document
+        .getElementById('overlay')
+        .classList
+        .add('active');
+}
+
+
+/* =========================
+   FERMETURE
+   ========================= */
+
+function fermerFiche(){
+
+    document
+        .getElementById('overlay')
+        .classList
+        .remove('active');
+
+}
+
+document
+    .getElementById('overlay')
+    .addEventListener('click', e => {
+
+        if(e.target.id === 'overlay'){
+            fermerFiche();
+        }
+
+    });
+
+
+/* =========================
+   VCARD
+   ========================= */
+
+function telechargerVCard(profil){
+
+    const vcard = `BEGIN:VCARD
+VERSION:3.0
+FN:${profil.nom}
+TITLE:${profil.poste}
+ORG:Grand Est Automobiles;${profil.site}
+EMAIL:${profil.email}
+TEL:${profil.tel}
+ADR;TYPE=WORK:;;1A rue Emile Mathis;Hoenheim;;67800;France
+END:VCARD`;
+
+    const blob = new Blob(
+        [vcard],
+        {
+            type:'text/vcard;charset=utf-8'
+        }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+
+    a.href = url;
+
+    a.download =
+        `${profil.nom.replace(/\s+/g,'_')}.vcf`;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* =========================
+   CREATION DES CARTES
+   ========================= */
+
+profils.forEach(profil => {
+
+    const carte = document.createElement('div');
+
+    carte.className = 'card';
+
+    carte.innerHTML = `
+
+        <div class="avatar">
+            ${getInitiales(profil.nom)}
+        </div>
+
+        <h3>
+            ${profil.nom}
+        </h3>
+
+        <p>
+            ${profil.poste}
+        </p>
+
+        <span class="hint">
+            Voir la fiche
+        </span>
+
+    `;
+
+    carte.onclick = () =>
+        ouvrirFiche(profil);
+
+    document
+        .getElementById(profil.groupe)
+        .appendChild(carte);
+
+});
+
+</script>
+
+</body>
+</html>
