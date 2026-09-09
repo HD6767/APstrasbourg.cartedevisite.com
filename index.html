@@ -286,10 +286,10 @@ body{
 
 
 <!-- ========================= -->
-<!-- VENDEURS ESA HOENHEIM -->
+<!-- VENDEURS ESA -->
 <!-- ========================= -->
 
-<div class="section-title">Vendeurs ESA Hoenheim</div>
+<div class="section-title">Vendeurs ESA</div>
 <div id="societes"></div>
 
 
@@ -297,7 +297,7 @@ body{
 <!-- VENDEURS ILLKIRCH -->
 <!-- ========================= -->
 
-<div class="section-title">Vendeurs Illkirch</div>
+<div class="section-title">Vendeur VN Illkirch</div>
 <div id="illkirch"></div>
 
 
@@ -313,7 +313,7 @@ const adresse = "1A rue Emile Mathis, 67800 Hoenheim";
 const profils = [
 
     /* =========================
-       HOENHEIM
+       VENDEURS VN HOENHEIM
        ========================= */
 
     {
@@ -381,15 +381,24 @@ const profils = [
 
 
     /* =========================
-       VENDEURS ESA HOENHEIM
+       VENDEURS ESA
        ========================= */
+
+    {
+        nom:"Seibert Guillaume",
+        poste:"Chef des Ventes ESA",
+        email:"",
+        tel:"06 63 28 49 64",
+        site:"Peugeot Strasbourg - ESA",
+        groupe:"societes"
+    },
 
     {
         nom:"Muller Johann",
         poste:"Vendeur ESA",
         email:"",
         tel:"06 22 89 69 36",
-        site:"Peugeot Strasbourg - ESA Hoenheim",
+        site:"Peugeot Strasbourg - ESA",
         groupe:"societes"
     },
 
@@ -398,7 +407,7 @@ const profils = [
         poste:"Vendeur ESA",
         email:"",
         tel:"06 18 66 28 02",
-        site:"Peugeot Strasbourg - ESA Hoenheim",
+        site:"Peugeot Strasbourg - ESA",
         groupe:"societes"
     },
 
@@ -407,7 +416,7 @@ const profils = [
         poste:"Vendeur ESA",
         email:"",
         tel:"06 28 29 99 46",
-        site:"Peugeot Strasbourg - ESA Hoenheim",
+        site:"Peugeot Strasbourg - ESA",
         groupe:"societes"
     },
 
@@ -416,20 +425,38 @@ const profils = [
         poste:"Vendeur ESA",
         email:"",
         tel:"06 51 00 21 43",
-        site:"Peugeot Strasbourg - ESA Hoenheim",
+        site:"Peugeot Strasbourg - ESA",
         groupe:"societes"
     },
-
-
-    /* =========================
-       ILLKIRCH
-       ========================= */
 
     {
         nom:"Zell Christel",
         poste:"Vendeuse ESA",
         email:"",
         tel:"06 23 83 17 34",
+        site:"Peugeot Strasbourg - ESA",
+        groupe:"societes"
+    },
+
+
+    /* =========================
+       VENDEURS ILLKIRCH
+       ========================= */
+
+    {
+        nom:"Hudana Rayan",
+        poste:"Vendeur VN",
+        email:"",
+        tel:"07 60 83 98 47",
+        site:"Peugeot Strasbourg Illkirch",
+        groupe:"illkirch"
+    },
+
+    {
+        nom:"Kouas Nabil",
+        poste:"Responsable VO / VN",
+        email:"",
+        tel:"06 23 90 88 31",
         site:"Peugeot Strasbourg Illkirch",
         groupe:"illkirch"
     },
@@ -457,15 +484,6 @@ const profils = [
         poste:"Vendeur VN",
         email:"",
         tel:"06 46 75 57 73",
-        site:"Peugeot Strasbourg Illkirch",
-        groupe:"illkirch"
-    },
-
-    {
-        nom:"Hudana Rayan",
-        poste:"Vendeur VN",
-        email:"",
-        tel:"07 60 83 98 47",
         site:"Peugeot Strasbourg Illkirch",
         groupe:"illkirch"
     }
@@ -573,7 +591,7 @@ function ouvrirFiche(profil){
 
 
 /* =========================
-   FERMETURE
+   FERMETURE DE LA FICHE
    ========================= */
 
 function fermerFiche(){
@@ -584,6 +602,7 @@ function fermerFiche(){
         .remove('active');
 
 }
+
 
 document
     .getElementById('overlay')
@@ -597,7 +616,7 @@ document
 
 
 /* =========================
-   VCARD
+   TELECHARGEMENT VCARD
    ========================= */
 
 function telechargerVCard(profil){
